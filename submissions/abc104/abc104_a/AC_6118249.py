@@ -1,0 +1,9 @@
+a=int(input())
+s=""
+if(a<=1199):
+  s="ABC"
+elif(a<=2799):
+  s="ARC"
+else:
+  s="AGC"
+print(s)
