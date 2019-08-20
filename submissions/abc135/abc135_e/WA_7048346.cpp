@@ -1,0 +1,90 @@
+#include <bits/stdc++.h>
+#define rep(i, n) for(int i = 0; i < (n); i++)
+#define all(a) a.begin(), a.end()
+template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return 1; } return 0; }
+template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return 1; } return 0; }
+typedef long long ll;
+using namespace std;
+
+#define int long long
+
+struct point{
+    int x, y;
+    point(int x = 0, int y = 0) : x(x), y(y) {}
+};
+
+void answer(vector<point>& vec, int size, bool x, bool y, bool s){
+    cout << size << endl;
+    for(point p : vec){
+        if(s)swap(p.x, p.y);
+        if(y)p.y = -p.y;
+        if(x)p.x = -p.x;
+        cout << p.x << ' ' << p.y << endl;
+    }
+}
+signed main(){
+
+    int K, X, Y;
+    cin >> K >> X >> Y;
+
+    bool xnegative = false;
+    if(X < 0){
+        X = -X;
+        xnegative = true;
+    }
+    bool ynegative = false;
+    if(Y < 0){
+        Y = -Y;
+        ynegative = true;
+    }
+    bool swapped = false;
+    if(X < Y){
+        swap(X, Y);
+        swapped = true;
+    }
+
+    int D = X + Y;
+    if(K % 2 == 0 and D % 2 == 1){
+        cout << -1 << endl;
+        return 0;
+    }
+
+    int step = 0;
+    vector<point> ans;
+
+    if(D < K and D % 2 == 1){
+        step = 3;
+        ans.push_back(point(X, X - K));
+        ans.push_back(point(X + (K + X - Y) / 2, Y - K + (K + X - Y) / 2));
+        ans.push_back(point(X, Y));
+        answer(ans, step, xnegative, ynegative, swapped);
+        return 0;
+    } else {
+        step = max<int>((D + K - 1) / K, 2);
+        if((D - K * step) % 2 == 1)step++;
+        int down = (D - K * step) / 2;
+        // assert(X - down >= K); //これがREはおかしいだろ
+        point now(0, 0);
+        while(now.y - K >= down){
+            now.y -= K;
+            ans.push_back(now);
+        }
+        now.x = K - (now.y - down);
+        now.y = down;
+        ans.push_back(now);
+        while(now.x + K <= X){
+            now.x += K;
+            ans.push_back(now);
+        }
+        now.y = down + K - (X - now.x);
+        now.x = X;
+        ans.push_back(now);
+        while(now.y < Y){
+            now.y += K;
+            //ans.push_back(now);
+        }
+        //answer(ans, step, xnegative, ynegative, swapped);
+        return 0;
+    }
+
+}
