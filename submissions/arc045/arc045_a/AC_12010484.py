@@ -1,0 +1,1 @@
+print(input().replace("Right",">").replace("Left","<").replace("AtCoder","A"))
