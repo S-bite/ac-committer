@@ -1,0 +1,125 @@
+#include <bits/stdc++.h>
+#define _overload3(_1, _2, _3, name, ...) name
+#define _rep(i, n) repi(i, 0, n)
+#define repi(i, a, b) for (int i = (a); i < (b); ++i)
+#define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define ALL(x) x.begin(), x.end()
+#define chmax(x, y) x = max(x, y)
+#define chmin(x, y) x = min(x, y)
+using namespace std;
+using ll = long long;
+using lld = long double;
+using VI = vector<int>;
+using VVI = vector<VI>;
+using VL = vector<ll>;
+using VVL = vector<VL>;
+using PII = pair<int, int>;
+random_device rnd;
+mt19937 mt(rnd());
+
+const int IINF = 1 << 30;
+const ll INF = 1ll << 60;
+const ll MOD = 1e9 + 7;
+
+typedef string::const_iterator State;
+class ParseError
+{
+};
+void consume(State &begin, char expected)
+{
+    if (*begin == expected)
+    {
+        begin++;
+    }
+    else
+    {
+        cerr << "Expected '" << expected << "' but got '" << *begin << "'"
+             << endl;
+        cerr << "Rest string is '";
+        while (*begin)
+        {
+            cerr << *begin++;
+        }
+        cerr << "'" << endl;
+        throw ParseError();
+    }
+}
+void dump(State begin)
+{
+    auto cur = begin;
+    while (*cur)
+    {
+        cerr << *cur;
+        cur++;
+    }
+    cerr << endl;
+}
+string set_or_dict(State &begin);
+string number(State &begin)
+{
+    while (isdigit(*begin))
+        begin++;
+    return "number";
+}
+string expr(State &begin)
+{
+    // cerr << "expr" << endl;
+    // dump(begin);
+
+    if (isdigit(*begin))
+        return number(begin);
+    else
+        return set_or_dict(begin);
+}
+
+string set_or_dict(State &begin)
+{
+    //  cerr << "set_or_dict" << endl;
+
+    consume(begin, '{');
+    if (*begin == '}')
+    {
+        consume(begin, '}');
+        return "dict";
+    }
+    expr(begin);
+    string ret = "";
+    if (*begin == ':')
+    {
+        ret = "dict";
+
+        consume(begin, ':');
+        expr(begin);
+        while (*begin != '}')
+        {
+            consume(begin, ',');
+            expr(begin);
+            consume(begin, ':');
+            expr(begin);
+        }
+    }
+    else
+    {
+        //cerr << "set!" << endl;
+        ret = "set";
+        while (*begin != '}')
+        {
+            //dump(begin);
+
+            consume(begin, ',');
+            expr(begin);
+        }
+        consume(begin, '}');
+    }
+    return ret;
+}
+
+int main()
+{
+    string s;
+    cin >> s;
+    State begin = s.begin();
+    cout << expr(begin) << endl;
+
+    return 0;
+}
