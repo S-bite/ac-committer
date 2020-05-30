@@ -93,6 +93,8 @@ def main():
         with open("pushedSubmissions.json", "w") as f:
             json.dump(pushed, f)
         time.sleep(1)
+    subprocess.run(["git", "add", "pushedSubmissions.json"])
+    subprocess.run(["git", "commit", "-m","'[update] update json'"])
     subprocess.run(["git", "push", "origin","master"])
 
 main()
