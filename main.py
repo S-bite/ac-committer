@@ -88,7 +88,7 @@ def main():
             print("already pushed")
             continue
         print(problem_id, result)
-        commit(submission) == True:
+        commit(submission):
         pushed[submission_id] = True
         with open("pushedSubmissions.json", "w") as f:
             json.dump(pushed, f)
