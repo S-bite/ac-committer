@@ -1,0 +1,22 @@
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func main() {
+	var s string
+	fmt.Scan(&s)
+	var old = s
+	for {
+		for i := 1000; i >= 1; i-- {
+			s = strings.Replace(old, strings.Repeat("W", i)+"A", "A"+strings.Repeat("C", i), -1)
+		}
+		if s == old {
+			break
+		}
+		old = s
+	}
+	fmt.Println(s)
+}
