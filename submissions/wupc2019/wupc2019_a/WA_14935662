@@ -1,0 +1,18 @@
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func f(x int) int {
+	return 42 * x
+}
+
+func main() {
+	var s string
+	fmt.Scan(&s)
+	s = strings.Replace(s, "WA", "AC", -1)
+
+	fmt.Print(s)
+}
