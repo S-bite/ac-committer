@@ -57,7 +57,7 @@ def commit(submission):
         f.write(code)
     subprocess.run(["git", "add", filepath])
     subprocess.run(
-        ["git", "commit", "-m", f'\"[{result}] {problem_id}\"', "--date", str(date)])
+        ["git", "commit", "-m", f'[{result}] {problem_id}', "--date", str(date)])
     return True
 
 
@@ -94,7 +94,7 @@ def main():
             json.dump(pushed, f)
         time.sleep(1)
     subprocess.run(["git", "add", "pushedSubmissions.json"])
-    subprocess.run(["git", "commit", "-m","'[update] update json'"])
+    subprocess.run(["git", "commit", "-m","[update] update json"])
     subprocess.run(["git", "push", "origin","master"])
 
 main()
