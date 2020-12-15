@@ -1,0 +1,22 @@
+// -*- coding:utf-8-unix -*-
+
+use proconio::input;
+
+// ABC086C - Traveling
+// https://atcoder.jp/contests/abs/fasks/arc089_a
+
+fn main() {
+    input! {
+        s: String,
+    }
+    let v: Vec<char> = s.chars().collect();
+    let mut rem = v.len() - 2;
+    if v[0] == v[v.len() - 1] {
+        rem -= 1;
+    }
+    if rem % 2 == 0 {
+        println!("Second");
+    } else {
+        println!("First");
+    }
+}
