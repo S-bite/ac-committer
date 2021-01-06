@@ -1,0 +1,17 @@
+#[allow(unused_imports)]
+use proconio::input;
+#[allow(unused_variables)]
+fn main() {
+    input! {
+        n:usize,
+        mut v:[i64;2*n],
+    }
+    v.sort();
+    v.reverse();
+    // dbg!(&v);
+    let mut ans = 0;
+    for i in 0..n {
+        ans += v[2 * i + 1];
+    }
+    println!("{}", ans);
+}
